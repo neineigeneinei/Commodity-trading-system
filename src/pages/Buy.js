@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Box, Typography, Grid, Paper } from "@mui/material";
 
 // 从Sell组件导入类目数据
@@ -14,6 +14,7 @@ const categoryMenuItems = {
 
 const Buy = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
 
@@ -21,47 +22,65 @@ const Buy = () => {
   const searchParams = new URLSearchParams(location.search);
   const mainCategory = searchParams.get("mainCategory");
   const subCategory = searchParams.get("subCategory");
+  const keyword = searchParams.get("keyword");
+  console.log("组件重新渲染,URL参数:", { mainCategory, subCategory, keyword });
 
   useEffect(() => {
-    // 模拟从API获取商品数据
-    const mockProducts = Array.from({ length: 20 }).map((_, index) => {
-      // 先随机选择一个主类目
-      const mainCat =
-        Object.keys(categoryMenuItems)[
-          Math.floor(Math.random() * Object.keys(categoryMenuItems).length)
-        ];
-      // 从选定的主类目中随机选择一个子类目
-      const subCat =
-        categoryMenuItems[mainCat][
-          Math.floor(Math.random() * categoryMenuItems[mainCat].length)
-        ];
+    console.log("useEffect触发,keyword值:", keyword);
+    // 从后端API获取商品数据
+    const fetchProducts = async () => {
+      try {
+        let url = "http://localhost:5000/api/products";
+        if (keyword) {
+          url = `http://localhost:5000/api/products/search?keyword=${encodeURIComponent(
+            keyword
+          )}`;
+          console.log("搜索URL:", url);
+        }
+        console.log("开始发送API请求...");
+        const response = await fetch(url);
+        const data = await response.json();
+        console.log("API返回数据:", data);
+        if (data.success) {
+          console.log("设置商品数据，数量:", data.data.length);
+          setProducts(data.data);
+        } else {
+          console.error("获取商品列表失败:", data.message);
+        }
+      } catch (error) {
+        console.error("获取商品列表出错:", error);
+      }
+    };
 
-      return {
-        id: index + 1,
-        name: `商品${index + 1}`,
-        price: (Math.random() * 0.09 + 0.01).toFixed(3),
-        mainCategory: mainCat,
-        subCategory: subCat,
-        image: `/images/product${(index % 8) + 1}.jpg`,
-        sales: Math.floor(Math.random() * 1000),
-      };
-    });
-    setProducts(mockProducts);
-  }, []);
+    fetchProducts();
+  }, [keyword]);
 
   useEffect(() => {
-    // 根据类目参数筛选商品
-    if (mainCategory) {
-      const filtered = products.filter(
-        (product) =>
-          product.mainCategory === mainCategory &&
-          (!subCategory || product.subCategory === subCategory)
+    // 根据类目参数和关键字筛选商品
+    console.log("开始筛选商品，当前商品数量:", products.length);
+    console.log("筛选条件:", { mainCategory, subCategory, keyword });
+
+    let filtered = products;
+
+    // 如果有关键字，先按关键字筛选
+    if (keyword) {
+      filtered = products.filter((product) =>
+        product.name.toLowerCase().includes(keyword.toLowerCase())
       );
-      setFilteredProducts(filtered);
-    } else {
-      setFilteredProducts(products);
     }
-  }, [products, mainCategory, subCategory]);
+
+    // 如果有类目，再按类目筛选
+    if (mainCategory) {
+      filtered = filtered.filter(
+        (product) =>
+          product.main_category === mainCategory &&
+          (!subCategory || product.sub_category === subCategory)
+      );
+    }
+
+    console.log("筛选后商品数量:", filtered.length);
+    setFilteredProducts(filtered);
+  }, [products, mainCategory, subCategory, keyword]);
 
   return (
     <Box
@@ -88,7 +107,9 @@ const Buy = () => {
         {filteredProducts.map((product) => (
           <Grid item xs={12} sm={6} md={3} key={product.id}>
             <Paper
+              onClick={() => navigate(`/product/${product.id}`)}
               sx={{
+                cursor: "pointer",
                 padding: 2,
                 backgroundColor: "#2d262c",
                 color: "white",
@@ -110,7 +131,7 @@ const Buy = () => {
                 }}
               >
                 <img
-                  src={product.image}
+                  src={product.image_url}
                   alt={product.name}
                   style={{
                     width: "100%",
@@ -129,13 +150,13 @@ const Buy = () => {
                 variant="body2"
                 sx={{ color: "#888", marginBottom: 1 }}
               >
-                类目: {product.mainCategory} - {product.subCategory}
+                类目: {product.main_category} - {product.sub_category}
               </Typography>
               <Typography variant="body1" sx={{ color: "#FFD700" }}>
-                {product.price} ETH
+                {Number(product.price).toFixed(3)} ETH
               </Typography>
               <Typography variant="body2" sx={{ color: "#888", marginTop: 1 }}>
-                销量: {product.sales} 件
+                销量: {product.sales || 0} 件
               </Typography>
             </Paper>
           </Grid>

@@ -7,7 +7,14 @@ import {
   Grid,
   IconButton,
 } from "@mui/material";
-import { Facebook, Twitter, Instagram, LinkedIn } from "@mui/icons-material";
+import {
+  Facebook,
+  Twitter,
+  Instagram,
+  LinkedIn,
+  Chat as WechatIcon,
+  Message as QQIcon,
+} from "@mui/icons-material";
 import "../App.css"; // 自定义样式
 
 /* 底部交易区域 */
@@ -39,6 +46,7 @@ export default function Bottom() {
 
       <Button
         variant="contained"
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
         sx={{
           backgroundColor: "#FFD700",
           color: "#000",
@@ -102,44 +110,94 @@ export default function Bottom() {
             </Typography>
             <Box sx={{ display: "flex", gap: 2 }}>
               <IconButton
+                onClick={() =>
+                  window.open("https://facebook.com/lianzong", "_blank")
+                }
                 sx={{
                   color: "#FFD700",
+                  transition: "all 0.3s ease",
                   "&:hover": {
                     backgroundColor: "rgba(255, 215, 0, 0.1)",
+                    transform: "scale(1.1)",
                   },
                 }}
               >
                 <Facebook />
               </IconButton>
               <IconButton
+                onClick={() =>
+                  window.open("https://twitter.com/lianzong", "_blank")
+                }
                 sx={{
                   color: "#FFD700",
+                  transition: "all 0.3s ease",
                   "&:hover": {
                     backgroundColor: "rgba(255, 215, 0, 0.1)",
+                    transform: "scale(1.1)",
                   },
                 }}
               >
                 <Twitter />
               </IconButton>
               <IconButton
+                onClick={() =>
+                  window.open("https://instagram.com/lianzong", "_blank")
+                }
                 sx={{
                   color: "#FFD700",
+                  transition: "all 0.3s ease",
                   "&:hover": {
                     backgroundColor: "rgba(255, 215, 0, 0.1)",
+                    transform: "scale(1.1)",
                   },
                 }}
               >
                 <Instagram />
               </IconButton>
               <IconButton
+                onClick={() =>
+                  window.open("https://linkedin.com/company/lianzong", "_blank")
+                }
                 sx={{
                   color: "#FFD700",
+                  transition: "all 0.3s ease",
                   "&:hover": {
                     backgroundColor: "rgba(255, 215, 0, 0.1)",
+                    transform: "scale(1.1)",
                   },
                 }}
               >
                 <LinkedIn />
+              </IconButton>
+              <IconButton
+                onClick={() =>
+                  window.open("https://wechat.com/lianzong", "_blank")
+                }
+                sx={{
+                  color: "#FFD700",
+                  transition: "all 0.3s ease",
+                  "&:hover": {
+                    backgroundColor: "rgba(255, 215, 0, 0.1)",
+                    transform: "scale(1.1)",
+                  },
+                }}
+              >
+                <WechatIcon />
+              </IconButton>
+              <IconButton
+                onClick={() =>
+                  window.open("https://im.qq.com/lianzong", "_blank")
+                }
+                sx={{
+                  color: "#FFD700",
+                  transition: "all 0.3s ease",
+                  "&:hover": {
+                    backgroundColor: "rgba(255, 215, 0, 0.1)",
+                    transform: "scale(1.1)",
+                  },
+                }}
+              >
+                <QQIcon />
               </IconButton>
             </Box>
           </Grid>

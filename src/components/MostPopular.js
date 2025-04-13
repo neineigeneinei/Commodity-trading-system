@@ -8,43 +8,49 @@ const sellers = [
     id: 1,
     name: "No.1",
     avatar: "https://via.placeholder.com/50",
-    image: "/images/A.jpg",
-    info: "Name: 牢孙 Volume: 2589",
+    image: "/images/AAA.png",
+    info: "Name: Alice Volume: 2589",
+    wallet_address: "0xa0ee7a142d267c1f36714e4a8f75612f20a79720",
   },
   {
     id: 2,
     name: "No.2",
     avatar: "https://via.placeholder.com/50",
-    image: "/images/B.jpg",
-    info: "Name: 科匕匕 Volume: 2385",
+    image: "/images/BBB.png",
+    info: "Name: Bob Volume: 2385",
+    wallet_address: "0x23618e81e3f5cdf7f54c3d65f7fbc0abf5b21e8f",
   },
   {
     id: 3,
     name: "No.3",
     avatar: "https://via.placeholder.com/50",
-    image: "/images/C.jpg",
-    info: "Name: 男人 Volume: 2118",
+    image: "/images/GGG.png",
+    info: "Name: man Volume: 2118",
+    wallet_address: "0x14dc79964da2c08b23698b3d3cc7ca32193d9955",
   },
   {
     id: 4,
     name: "No.4",
     avatar: "https://via.placeholder.com/50",
-    image: "/images/D.jpg",
-    info: "Name: 哈哈哈 Volume: 1889",
+    image: "/images/DDD.png",
+    info: "Name: Ha Volume: 1889",
+    wallet_address: "0x4567890123456789012345678901234567890123",
   },
   {
     id: 5,
     name: "No.5",
     avatar: "https://via.placeholder.com/50",
-    image: "/images/E.jpg",
-    info: "Name: 罐子 Volume: 1869",
+    image: "/images/EEE.png",
+    info: "Name: Can Volume: 1869",
+    wallet_address: "0x5678901234567890123456789012345678901234",
   },
   {
     id: 6,
     name: "No.6",
     avatar: "https://via.placeholder.com/50",
-    image: "/images/F.jpg",
-    info: "Name: 出去 Volume: 1745",
+    image: "/images/FFF.png",
+    info: "Name: Out Volume: 1745",
+    wallet_address: "0x6789012345678901234567890123456789012345",
   },
 ];
 
@@ -108,7 +114,9 @@ export default function MostPopular() {
               sx={{ position: "relative" }}
             >
               <Paper
-                onClick={() => navigate(`/seller/${seller.id}`)}
+                onClick={() =>
+                  navigate(`/seller-detail/${seller.wallet_address}`)
+                }
                 sx={{
                   cursor: "pointer",
                   width: "200px",
@@ -154,6 +162,9 @@ export default function MostPopular() {
 
               <Fade in={hoveredSeller?.id === seller.id}>
                 <Paper
+                  onClick={() =>
+                    navigate(`/seller-detail/${seller.wallet_address}`)
+                  }
                   sx={{
                     position: "absolute",
                     top: 0,
@@ -168,6 +179,7 @@ export default function MostPopular() {
                     fontSize: "1.1rem",
                     textAlign: "center",
                     borderRadius: 2,
+                    cursor: "pointer",
                   }}
                 >
                   {seller.info}
