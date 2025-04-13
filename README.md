@@ -1,12 +1,10 @@
 # 大宗商品交易平台 Commodity Trading Platform
 
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Java](https://img.shields.io/badge/Java-17+-orange.svg)](https://openjdk.org/)
-[![Spring Cloud](https://img.shields.io/badge/Spring_Cloud-2022.0.3-brightgreen.svg)](https://spring.io/projects/spring-cloud)
+本项目的主要技术路线是react+node.js+express+MySQL完成基本前后端，实现了基本的交易平台买卖功能，且通过部署智能合约完成区块链的集成，实现了信息的链上透明性和交易可追溯性，保证了交易更可靠和安全。
 
 🌍 基于分布式架构的现代化大宗商品交易解决方案，涵盖能源、金属、农产品等品类交易，提供从挂牌撮合到供应链金融的全流程服务。
 
-➡️ [在线演示](https://commodity.demo.com) | 📚 [API 文档](https://api.commodity.demo.com) | 📧 商务合作 contact@commodity.com
+📚 [API 文档](https://api.commodity.demo.com) | 📧 商务合作 contact@commodity.com
 
 ![交易平台界面截图](docs/screenshot.png)
 
