@@ -1,70 +1,53 @@
-# Getting Started with Create React App
+# 大宗商品交易平台 Commodity Trading Platform
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Java](https://img.shields.io/badge/Java-17+-orange.svg)](https://openjdk.org/)
+[![Spring Cloud](https://img.shields.io/badge/Spring_Cloud-2022.0.3-brightgreen.svg)](https://spring.io/projects/spring-cloud)
 
-## Available Scripts
+🌍 基于分布式架构的现代化大宗商品交易解决方案，涵盖能源、金属、农产品等品类交易，提供从挂牌撮合到供应链金融的全流程服务。
 
-In the project directory, you can run:
+➡️ [在线演示](https://commodity.demo.com) | 📚 [API 文档](https://api.commodity.demo.com) | 📧 商务合作 contact@commodity.com
 
-### `npm start`
+![交易平台界面截图](docs/screenshot.png)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 核心功能
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 🚀 交易引擎
+- 多维度商品挂牌（现货/期货/期权）
+- 智能订单撮合引擎（FOK/IOC/限价单）
+- 实时市场深度数据（L2行情推送）
+- 跨市场套利预警系统
 
-### `npm test`
+### ⚡ 实时系统
+- 分布式订单簿处理（Kafka+Redis集群）
+- 毫秒级交易响应（<50ms 延迟）
+- 多数据中心灾备（异地多活架构）
+- 交易终端WebSocket支持
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 🔐 风控体系
+- 实时保证金监控
+- 黑天鹅事件熔断机制
+- 反市场操纵检测模型
+- 多级KYC/AML验证流程
 
-### `npm run build`
+### 📦 供应链集成
+- 智能仓储物联监控
+- 物流轨迹区块链存证
+- 电子仓单质押融资
+- 跨境结算通道对接
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 技术架构
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```mermaid
+graph TD
+    A[交易终端] --> B{Nginx 7层负载}
+    B --> C[Spring Cloud Gateway]
+    C --> D[认证中心]
+    C --> E[订单服务集群]
+    C --> F[清算服务集群]
+    E --> G[RabbitMQ 订单队列]
+    F --> H[PostgreSQL 财务库]
+    G --> I[撮合引擎核心]
+    I --> J[Redis 行情缓存]
+    J --> K[Kafka 数据管道]
+    K --> L[大数据分析平台]
